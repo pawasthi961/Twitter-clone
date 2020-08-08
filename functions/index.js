@@ -1,13 +1,22 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-
-
+const app  = require('express')();
 admin.initializeApp();
-const express  = require('express');
-const app = express();
 
-// Create and Deploy Your First Cloud Functions
-// https://firebase.google.com/docs/functions/write-firebase-functions
+const firebaseConfig = {
+    apiKey: "AIzaSyBoZlPwdurx8AbKNhIeCcDPchkO0XOtUUA",
+    authDomain: "twitter-clone-3b2ac.firebaseapp.com",
+    databaseURL: "https://twitter-clone-3b2ac.firebaseio.com",
+    projectId: "twitter-clone-3b2ac",
+    storageBucket: "twitter-clone-3b2ac.appspot.com",
+    messagingSenderId: "214744427286",
+    appId: "1:214744427286:web:43fcd9f1da01c566107e37",
+    measurementId: "G-TX96HFPZQ6"
+};
+
+const firebase = require('firebase');
+firebase.initializeApp(firebaseConfig)
+
 
 app.get('/screams', (req,res) =>{
     admin
@@ -51,5 +60,25 @@ app.post("/scream",(req,res)=>{
 })
     
 
+// Signup route 
+app.post('/signup',(req,res)=>{
+    const newUser = {
+        email:req.body.email,
+        password:req.body.password,
+        confirmPassword : req.body.confirmPassword,
+        handle: req.body.handle,
+        photoURL : req.body.photoURL
+    };
+    // validate data
+    firebase.auth().createUserWithEmailAndPassword(newUser.email,newUser.password)
+        .then(data =>{
+            return res.json({data , message:`user ${data.user.uid} signed up successfully`})
+            
+        })
+        .catch(err=>{
+            console.log(err);
+            return res.status(500).json({error:err.code});
+        })
+})
 
 exports.api = functions.https.onRequest(app);
