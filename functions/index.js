@@ -20,6 +20,8 @@ const {
   uploadImage,
   addUserDetails,
   getAuthenticatedUser,
+  getUserDetails,
+  markNotificationsRead
 } = require("./handlers/users");
 
 //Scream routes
@@ -38,10 +40,10 @@ app.post("/login", login);
 app.post("/user/image", FBAuth, uploadImage);
 app.post("/user", FBAuth, addUserDetails);
 app.get("/user", FBAuth, getAuthenticatedUser);
+app.get("/user/:handle",getUserDetails)
+app.post("/notifications",FBAuth,markNotificationsRead)
 
-// Post one scream
 
-// Signup route
 
 exports.api = functions.https.onRequest(app);
 
@@ -56,7 +58,7 @@ exports.createNotificationOnLike = functions.firestore
         return db.doc(`/notifications/${snapshot.id}`).set({
           createdAt: new Date().toISOString(),
           recipient: doc.data().userHandle,
-          sender: snapshot.data().userhandle,
+          sender: snapshot.data().userHandle,
           type: "like",
           read: false,
           screamId: doc.id,
