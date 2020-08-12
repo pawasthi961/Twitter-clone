@@ -175,6 +175,7 @@ exports.getAuthenticatedUser = (req, res) => {
           .where("userhandle", "==", req.user.handle)
           .get();
       }
+      return null
     })
     .then((data) => {
       userData.likes = [];
