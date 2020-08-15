@@ -10,7 +10,7 @@ exports.getAllScreams = (req, res) => {
         screams.push({
           screamId: doc.id,
           body: doc.data().body,
-          userhandle: doc.data().userHandle,
+          userHandle: doc.data().userHandle,
           createdAt: doc.data().createdAt,
           commentCount : doc.data().commentCount,
           likeCount : doc.data().likeCount,
