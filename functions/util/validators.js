@@ -3,22 +3,20 @@ const isEmpty = (string) => {
     else return false;
   };
 
-const isEmail = (email) =>{
-  var emailValidatingPattern = String(/^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-  emailValidatingPattern = new RegExp(emailValidatingPattern)
+// const isEmail = (email) =>{
+//   var emailValidatingPattern = String(/^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+//   emailValidatingPattern = new RegExp(emailValidatingPattern)
       
-    if (email.match(emailValidatingPattern)) return true;
-    else return false;
-}
+//     if (email.match(emailValidatingPattern)) return true;
+//     else return false;
+// }
 
 exports.validateSignupData = (data) =>{
     let errors = {};
     if (isEmpty(data.email)) {
         errors.email = "Must not be empty";
       
-      } else if (!isEmail(data.email)) {
-        errors.email = "must be a valid email address";
-      }
+      } 
       if (isEmpty(data.password)) errors.password = "Must not be empty";
       if ((data.password) !==(data.confirmPassword))
         errors.confirmPassword = "Password must match";
