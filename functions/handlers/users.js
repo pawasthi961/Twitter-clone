@@ -168,7 +168,7 @@ exports.getAuthenticatedUser = (req, res) => {
         userData.userCredentials = doc.data();
         return db
           .collection("likes")
-          .where("userhandle", "==", req.user.handle)
+          .where("userHandle", "==", req.user.handle)
           .get();
       }
       return null;
